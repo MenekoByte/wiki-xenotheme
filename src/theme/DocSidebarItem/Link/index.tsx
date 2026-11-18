@@ -6,7 +6,7 @@ import Link from '@docusaurus/Link';
 import isInternalUrl from '@docusaurus/isInternalUrl';
 import IconExternalLink from '@theme/Icon/ExternalLink';
 import type {Props} from '@theme/DocSidebarItem/Link';
-import {svgIconMap} from '../sidebarIcons';
+import {SidebarIcon} from '../sidebarIcons';
 
 import styles from './styles.module.css';
 
@@ -30,7 +30,6 @@ export default function DocSidebarItemLink({
   const isActive = isActiveSidebarItem(item, activePath);
   const isInternalLink = isInternalUrl(href);
   const svgIcon = customProps?.svgIcon as string | undefined;
-  const SvgIcon = svgIcon ? svgIconMap[svgIcon] : undefined;
 
   return (
     <li
@@ -55,12 +54,7 @@ export default function DocSidebarItemLink({
           onClick: onItemClick ? () => onItemClick(item) : undefined,
         })}
         {...props}>
-        {SvgIcon && (
-          <SvgIcon
-            className={styles.sidebarIcon}
-            aria-hidden="true"
-          />
-        )}
+        {svgIcon && <SidebarIcon path={svgIcon} className={styles.sidebarIcon} />}
         <LinkLabel label={label} />
         {!isInternalLink && <IconExternalLink />}
       </Link>

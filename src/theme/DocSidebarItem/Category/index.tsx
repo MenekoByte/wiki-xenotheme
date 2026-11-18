@@ -29,7 +29,7 @@ import type {
   PropSidebarItemCategory,
   PropSidebarItemLink,
 } from '@docusaurus/plugin-content-docs';
-import {svgIconMap} from '../sidebarIcons';
+import {SidebarIcon} from '../sidebarIcons';
 import styles from './styles.module.css';
 
 function useAutoExpandActiveCategory({
@@ -229,7 +229,6 @@ function DocSidebarItemCategoryCollapsible({
   };
 
   const svgIconPath = customProps?.svgIcon as string | undefined;
-  const SvgIcon = svgIconPath ? svgIconMap[svgIconPath] : undefined;
 
   return (
     <li
@@ -251,7 +250,7 @@ function DocSidebarItemCategoryCollapsible({
             'menu__link--sublist': collapsible,
             'menu__link--sublist-caret': !href && collapsible,
             'menu__link--active': isActive,
-            [styles.categoryLinkWithIcon]: !!SvgIcon,
+            [styles.categoryLinkWithIcon]: !!svgIconPath,
           })}
           onClick={handleItemClick}
           aria-current={isCurrentPage ? 'page' : undefined}
@@ -259,9 +258,7 @@ function DocSidebarItemCategoryCollapsible({
           aria-expanded={collapsible && !href ? !collapsed : undefined}
           href={collapsible ? hrefWithSSRFallback ?? '#' : hrefWithSSRFallback}
           {...props}>
-          {SvgIcon && (
-            <SvgIcon className={styles.categoryIcon} aria-hidden="true" />
-          )}
+          {svgIconPath && <SidebarIcon path={svgIconPath} className={styles.categoryIcon} />}
           <CategoryLinkLabel label={label} />
         </Link>
         {href && collapsible && (

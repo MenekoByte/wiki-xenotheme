@@ -1,0 +1,6 @@
+.maskIcon {
+  display: inline-block;
+  background-color: currentColor;
+  mask: var(--xeno-icon-url) center / contain no-repeat;
+  -webkit-mask: var(--xeno-icon-url) center / contain no-repeat;
+}
