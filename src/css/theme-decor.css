@@ -1,0 +1,204 @@
+/**
+ * Global Xenoblade-inspired page decor layers.
+ *
+ * Per-page color overrides are applied from `src/theme/shared/xenoPageTheme.ts`.
+ * This file only renders the shared decor system.
+ */
+
+:root {
+  --xeno-page-decor-software-top: url('/img/decor/software/default-top.png');
+  --xeno-page-decor-software-middle: url('/img/decor/software/default-middle.png');
+  --xeno-page-decor-software-bottom: url('/img/decor/software/default-bottom.png');
+}
+
+html[data-xeno-decor='troubleshooting'] {
+  --xeno-page-decor-software-top: url('/img/decor/software/troubleshooting-top.png');
+  --xeno-page-decor-software-middle: url('/img/decor/software/troubleshooting-middle.png');
+  --xeno-page-decor-software-bottom: url('/img/decor/software/troubleshooting-bottom.png');
+}
+
+html[data-xeno-decor='updating'] {
+  --xeno-page-decor-software-top: url('/img/decor/software/updating-top.png');
+  --xeno-page-decor-software-middle: url('/img/decor/software/updating-middle.png');
+  --xeno-page-decor-software-bottom: url('/img/decor/software/updating-bottom.png');
+}
+
+html[data-xeno-decor='customizing'] {
+  --xeno-page-decor-software-top: url('/img/decor/software/customizing-top.png');
+  --xeno-page-decor-software-middle: url('/img/decor/software/customizing-middle.png');
+  --xeno-page-decor-software-bottom: url('/img/decor/software/customizing-bottom.png');
+}
+
+html::before,
+html::after,
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+html[data-xeno-software-rendering]::before,
+html[data-xeno-software-rendering]::after,
+html[data-xeno-software-rendering] body::before,
+html[data-xeno-software-rendering] body::after {
+  display: none;
+  position: absolute;
+  height: 100vh;
+}
+
+html[data-xeno-software-rendering] body {
+  position: relative;
+  height: auto;
+  min-height: 100vh;
+}
+
+html[data-xeno-software-rendering] body::before {
+  top: auto;
+  bottom: 0;
+}
+
+html::before {
+  opacity: var(--xeno-page-decor-before-opacity);
+  background-color: var(--xeno-page-decor-before-ramp-base);
+  background-image: var(--xeno-page-decor-top-mask);
+  background-blend-mode: var(--xeno-page-decor-before-texture-shadow-blend);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: 100% auto;
+  mask-image: var(--xeno-page-decor-top-mask);
+  -webkit-mask-image: var(--xeno-page-decor-top-mask);
+  mask-mode: alpha;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: top center;
+  mask-position: top center;
+  -webkit-mask-size: 100% auto;
+  mask-size: 100% auto;
+}
+
+body::before {
+  opacity: var(--xeno-page-decor-before-opacity);
+  background-color: var(--xeno-page-decor-before-ramp-base);
+  background-image: var(--xeno-page-decor-bottom-mask);
+  background-blend-mode: var(--xeno-page-decor-before-texture-shadow-blend);
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: 100% auto;
+  mask-image: var(--xeno-page-decor-bottom-mask);
+  -webkit-mask-image: var(--xeno-page-decor-bottom-mask);
+  mask-mode: alpha;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: bottom center;
+  mask-position: bottom center;
+  -webkit-mask-size: 100% auto;
+  mask-size: 100% auto;
+}
+
+html::after {
+  opacity: var(--xeno-page-decor-after-opacity);
+  background-color: var(--xeno-page-decor-after-ramp-base);
+  background-image:
+    radial-gradient(ellipse at top left, var(--xeno-page-decor-after-tl), transparent 65%),
+    radial-gradient(ellipse at top right, var(--xeno-page-decor-after-tr), transparent 65%),
+    radial-gradient(ellipse at bottom left, var(--xeno-page-decor-after-bl), transparent 65%),
+    radial-gradient(ellipse at bottom right, var(--xeno-page-decor-after-br), transparent 65%);
+  background-blend-mode:
+    var(--xeno-page-decor-after-texture-blend),
+    var(--xeno-page-decor-after-texture-blend),
+    var(--xeno-page-decor-after-texture-blend),
+    var(--xeno-page-decor-after-texture-blend);
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: center, center, center, center;
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  mask-image: var(--xeno-page-decor-middle-mask);
+  -webkit-mask-image: var(--xeno-page-decor-middle-mask);
+  mask-mode: alpha;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 100% auto;
+  mask-size: 100% auto;
+}
+
+body::after {
+  opacity: calc(var(--xeno-page-decor-after-opacity) * var(--xeno-page-decor-after-ramp-opacity));
+  background-image:
+    radial-gradient(ellipse at top left, var(--xeno-page-decor-after-ramp-highlight) 0%, transparent 62%),
+    radial-gradient(ellipse at bottom right, var(--xeno-page-decor-after-ramp-highlight-soft) 0%, transparent 60%),
+    linear-gradient(
+      135deg,
+      var(--xeno-page-decor-after-ramp-highlight) 0%,
+      var(--xeno-page-decor-after-ramp-highlight-soft) 48%,
+      transparent 100%
+    );
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: center, center, center;
+  background-size: 100% 100%, 100% 100%, 100% 100%;
+  mask-image: var(--xeno-page-decor-middle-mask);
+  -webkit-mask-image: var(--xeno-page-decor-middle-mask);
+  mask-mode: luminance;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 100% auto;
+  mask-size: 100% auto;
+}
+
+html[data-xeno-decor-style='alt'] {
+  --xeno-page-decor-top-mask: url('/img/decor/decor_top_alt.png');
+  --xeno-page-decor-bottom-mask: url('/img/decor/decor_bottom_alt.png');
+  --xeno-page-decor-middle-mask: url('/img/decor/decor_middle_alt.png');
+}
+
+html[data-xeno-software-rendering]::before,
+html[data-xeno-software-rendering] body::before {
+  display: block;
+  opacity: 1;
+  background-color: transparent;
+  background-blend-mode: normal;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+html[data-xeno-software-rendering]::before {
+  background-image: var(--xeno-page-decor-software-top);
+}
+
+html[data-xeno-software-rendering] body::before {
+  background-image: var(--xeno-page-decor-software-bottom);
+}
+
+html[data-xeno-software-rendering] body::after {
+  display: block;
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+  opacity: 1;
+  background-color: transparent;
+  background-image: var(--xeno-page-decor-software-middle);
+  background-blend-mode: normal;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% auto;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+html[data-xeno-rendering-pending]::before,
+html[data-xeno-rendering-pending]::after,
+html[data-xeno-rendering-pending] body::before,
+html[data-xeno-rendering-pending] body::after {
+  display: none;
+  background-image: none;
+  mask-image: none;
+  -webkit-mask-image: none;
+}

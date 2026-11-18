@@ -1,0 +1,12 @@
+/**
+ * Single Docusaurus CSS entrypoint.
+ * Import slices in dependency order so foundation tokens land before the
+ * decor, docs, navigation, and chrome layers that consume them.
+ */
+
+@import './theme-foundation.css';
+@import './theme-decor.css';
+@import './theme-docs.css';
+@import './theme-sidebar.css';
+@import './theme-toc.css';
+@import './theme-chrome.css';
