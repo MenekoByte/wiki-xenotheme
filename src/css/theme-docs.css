@@ -27,7 +27,7 @@
   top: 4rem;
   max-height: calc(100vh - var(--ifm-navbar-height) - 2rem);
   overflow-y: auto;
-  background-color: var(--xeno-beige-light) !important;
+  background-color: var(--xeno-toc-bg) !important;
   border-radius: 16px;
   padding: 0.5rem !important;
   border: 0.1rem solid var(--xeno-brown-dark);

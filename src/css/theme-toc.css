@@ -8,26 +8,12 @@
   border-left: none !important;
 }
 
+/* Nested lists are plain containers; striping, indent and corners live on the rows (TOCItems/Tree.tsx). */
 .table-of-contents ul {
   padding: 0 !important;
-  margin: 8px 0 8px 1.5rem !important;
+  margin: 0 !important;
   border-left: none !important;
   list-style: none !important;
-  position: relative;
-}
-
-.table-of-contents ul::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -0.625rem;
-  right: 0.5rem;
-  background-color: var(--xeno-beige-light) !important;
-  border: 0.1rem solid var(--xeno-brown-dark);
-  border-radius: 0.5rem;
-  z-index: -1;
-  box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.2);
 }
 
 .table-of-contents li {
@@ -37,23 +23,40 @@
   width: 100%;
 }
 
-.table-of-contents li:nth-child(odd) {
-  background-color: var(--xeno-beige-mid) !important;
+/* Colour the link, not the li: a parent li also contains its nested rows. */
+.xeno-toc-row--odd {
+  --xeno-toc-row-bg: var(--xeno-beige-mid);
 }
 
-.table-of-contents li:nth-child(even) {
-  background-color: var(--xeno-beige-light) !important;
+.xeno-toc-row--even {
+  --xeno-toc-row-bg: var(--xeno-beige-light);
 }
 
-.table-of-contents li:first-child {
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
+.xeno-toc-row > .table-of-contents__link {
+  background-color: var(--xeno-toc-row-bg);
+  /* Nested rows are inset as a block, not just their text. */
+  margin-left: calc(var(--xeno-toc-depth, 0) * 1.5rem);
 }
 
-.table-of-contents li:last-child {
-  border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
-  margin-bottom: 0.75rem !important;
+/* A row with subsections rounds the corner its inset children leave exposed. */
+.xeno-toc-row:has(> ul) > .table-of-contents__link {
+  border-bottom-left-radius: 0.5rem !important;
+}
+
+/* Last row of a nested group closes it off. */
+.table-of-contents ul > .xeno-toc-row:last-child > .table-of-contents__link {
+  border-bottom-left-radius: 0.5rem !important;
+  border-bottom-right-radius: 0.5rem !important;
+}
+
+.xeno-toc-row--first > .table-of-contents__link {
+  border-top-left-radius: 0.5rem !important;
+  border-top-right-radius: 0.5rem !important;
+}
+
+.xeno-toc-row--last > .table-of-contents__link {
+  border-bottom-left-radius: 0.5rem !important;
+  border-bottom-right-radius: 0.5rem !important;
 }
 
 .table-of-contents__link {
@@ -66,13 +69,14 @@
   border-radius: 0 !important;
 }
 
+/* Opaque mix over the row's own colour, like the sidebar pills; the translucent green let the dark panel through. */
 .table-of-contents__link:hover {
-  background-color: var(--xeno-nav-hover-bg) !important;
+  background-color: color-mix(in srgb, var(--xeno-green-monado) 28%, var(--xeno-toc-row-bg, var(--xeno-beige-light))) !important;
   color: var(--xeno-brown-menu) !important;
 }
 
 .table-of-contents__link--active {
-  background-color: var(--xeno-nav-hover-bg) !important;
+  background-color: color-mix(in srgb, var(--xeno-green-monado) 28%, var(--xeno-toc-row-bg, var(--xeno-beige-light))) !important;
   font-weight: 700;
   position: relative;
   --xeno-cursor-size: 2.5rem;
