@@ -43,6 +43,11 @@
   border-bottom-left-radius: 0.5rem !important;
 }
 
+/* The row after a subsection group rounds the corner below the group's last child. */
+.xeno-toc-row:has(> ul) + .xeno-toc-row > .table-of-contents__link {
+  border-top-left-radius: 0.5rem !important;
+}
+
 /* Last row of a nested group closes it off. */
 .table-of-contents ul > .xeno-toc-row:last-child > .table-of-contents__link {
   border-bottom-left-radius: 0.5rem !important;
